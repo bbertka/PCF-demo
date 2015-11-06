@@ -4,7 +4,7 @@ applications:
   memory: 512M 
   instances: 1
   host: pcfdemo-producer-${random-word}
-  path: PCFDemo-producer/src
+  path: PCFDemo-producer/build/libs/demo-0.0.1-SNAPSHOT.jar
   timeout: 90
   services:
    - myrabbit
