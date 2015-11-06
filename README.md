@@ -1,5 +1,10 @@
 PCF Demo
 =========
+***Update***
+This project is under development for porting to Spring Boot Gradle. Projects must be rebuilt:
+
+- PCFDemo-producer: ./gradlew build
+
 
 This is the refactoring for the PCF-Demo app built with two different micro-services: 
 
