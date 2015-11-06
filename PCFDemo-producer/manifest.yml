@@ -4,7 +4,9 @@ applications:
   memory: 512M 
   instances: 1
   host: pcfdemo-producer-${random-word}
-  path: src
+  path: build/libs/demo-0.0.1-SNAPSHOT.jar
   timeout: 90
   env:
    JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
+  services:
+   - myrabbit
