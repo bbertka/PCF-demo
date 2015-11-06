@@ -28,6 +28,7 @@ public class RabbitClientController implements CommandLineRunner {
 		
 		Thread thread = new Thread(new Runnable() {
 			
+			@SuppressWarnings("unchecked")
 			@Override
 			public void run() {
 				RabbitClient client = RabbitClient.getInstance();
