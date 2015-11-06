@@ -1,46 +1,57 @@
 buildscript {
-	repositories {
-		mavenCentral()
-		
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:1.1.8.RELEASE")
-	}
+    ext {
+        springBootVersion = '1.2.7.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") 
+        classpath('io.spring.gradle:dependency-management-plugin:0.5.2.RELEASE')
+    }
 }
 
-apply plugin: 'groovy'
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
-apply plugin: 'spring-boot'
-apply plugin: 'war'
+apply plugin: 'spring-boot' 
+apply plugin: 'io.spring.dependency-management' 
 
-war {
-	baseName = 'PCFDemo-sender'
-	version =  '0.1.0'
+jar {
+    baseName = 'demo'
+    version = '0.0.1-SNAPSHOT'
 }
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
-	mavenCentral()
-	maven { url "http://repo.spring.io/snapshot" }
-	maven { url "http://repo.springsource.org/milestone" }
+    mavenCentral()
 }
 
 
 dependencies {
-	compile("org.springframework.boot:spring-boot-starter-web") {
-		exclude module: "spring-boot-starter-tomcat"
-	}
-	
-	compile 'org.codehaus.groovy:groovy-all:2.3.6'
-	compile 'org.apache.ivy:ivy:2.2.0'
-	compile("org.springframework.cloud:cloudfoundry-connector:0.9.9.BUILD-SNAPSHOT")
-	compile("org.springframework.cloud:spring-service-connector:0.9.9.BUILD-SNAPSHOT")
-	compile("org.springframework.amqp:spring-rabbit:1.2.0.RELEASE")
-	compile("org.springframework:spring-webmvc:3.1.1.RELEASE")
 	compile("com.googlecode.json-simple:json-simple:1.1")
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+    compile('org.springframework.boot:spring-boot-starter-amqp')
+    compile('org.springframework.boot:spring-boot-starter-cloud-connectors')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    testCompile('org.springframework.boot:spring-boot-starter-test') 
+}
+
+dependencyManagement {
+	imports { 
+		mavenBom "org.springframework.cloud:spring-cloud-starter-parent:Angel.SR3" 
+	}
+}
+
+
+eclipse {
+    classpath {
+         containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
+         containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
+    }
 }
 
 task wrapper(type: Wrapper) {
-	gradleVersion = '1.11'
+    gradleVersion = '2.7'
 }

@@ -1,23 +1,28 @@
-package io.pivotal.cf.sample
-
-@Grab("org.springframework.amqp:spring-rabbit:1.2.0.RELEASE")
+/**
+ * 
+ */
+package io.pivotal.tme;
 
 import java.io.IOException;
 import java.util.Iterator;
 
 import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
+
 import org.springframework.cloud.Cloud;
 import org.springframework.cloud.CloudException;
 import org.springframework.cloud.CloudFactory;
 import org.springframework.cloud.service.ServiceInfo;
-import org.springframework.cloud.service.common.RabbitServiceInfo;
+import org.springframework.cloud.service.common.AmqpServiceInfo;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
-import com.rabbitmq.client.QueueingConsumer;
 
+/**
+ * @author bbertka
+ *
+ */
 public class RabbitClient {
 
 	static Logger logger = Logger.getLogger(RabbitClient.class);
@@ -27,7 +32,6 @@ public class RabbitClient {
 
 	private ConnectionFactory factory;
 	private Connection senderConn;
-	private Connection receiverConn;
 	private String rabbitURI;
 	
 	private RabbitClient(){
@@ -37,15 +41,15 @@ public class RabbitClient {
 	    	Iterator<ServiceInfo> services = cloud.getServiceInfos().iterator();
 	    	while (services.hasNext()){
 	    		ServiceInfo svc = services.next();
-	    		if (svc instanceof RabbitServiceInfo){
-	    			RabbitServiceInfo rabbitSvc = ((RabbitServiceInfo)svc);	    			
+	    		if (svc instanceof AmqpServiceInfo){
+	    			AmqpServiceInfo rabbitSvc = ((AmqpServiceInfo)svc);	    			
 	    			rabbitURI=rabbitSvc.getUri();
 	    			
 	    			try{
 	    				factory = new ConnectionFactory();
 	    				factory.setUri(rabbitURI);
 	    				senderConn = factory.newConnection();
-	    				receiverConn = factory.newConnection();
+	    				factory.newConnection();
 	    			}
 	    			catch(Exception e){
 	    				throw new RuntimeException("Exception connecting to RabbitMQ",e);
