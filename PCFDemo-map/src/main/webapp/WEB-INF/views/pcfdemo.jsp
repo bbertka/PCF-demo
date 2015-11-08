@@ -180,23 +180,21 @@
             <b>Activation density per US State (tip: click on a state for details)</b>
           </div>
           <div class="chart-stage">
-	          <div id="maincontent">
-
-		      <div id="autogenMsg" align="center"> </div><br>
-
+	          <!-- <div id="maincontent"> -->
+	          <div id="stateOrders" align="center" ></div>
   		      <div id="usmap" align="center"></div>
-  		      <div id="stateOrders" align="center" ></div>
-	          </div>            
+	         <!--  </div> -->           
 	      </div>
           <div class="chart-notes">
 		      <c:choose>
 			  <c:when test="${rabbitURI != null}">
-				Subscriber Activation Data being streamed from RabbitMQ			
+				Status: subscriber activation data streaming from RabbitMQ			
 			  </c:when>
 			  <c:otherwise>
-				<b>No RabbitMQ service bound - streaming is not active</b>
+				<b>Status: no RabbitMQ service bound - streaming is not active</b>
 			  </c:otherwise>
-		      </c:choose>          </div>
+		      </c:choose>          
+		  </div>
         </div>
       </div>
       <div class="col-sm-2">

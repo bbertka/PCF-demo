@@ -17,7 +17,7 @@
 }
 
 #states .active {
-  fill: steelblue !important;
+  fill: #46B462 !important;
 }
 
 #state-borders {
@@ -47,8 +47,8 @@
 
 
 svg {
-    font: 15px sans-serif;
-    fill:#bdc3c7;
+    font: 15px "Helvetica Neue",Helvetica,Arial,sans-serif;
+    fill: #666666;
 }
 
 .line {

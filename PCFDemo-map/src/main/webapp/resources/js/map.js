@@ -96,15 +96,18 @@ function click(d) {
     $("#stateOrders").show(1000);
 
     selectedState = d.properties.abbr;
-	chart2.titleText="Orders for "+d.properties.name;
+	chart2.titleText="Activations for "+d.properties.name;
 
     //chart2.titleText="Orders for "+d.properties.abbr;
+	
+	/*
+	 //This scrolls the page when selecting a state, uncomment if the graph area is under the map
     setTimeout(function(){	  
   	    $('body').animate({
   	        scrollTop: 1000
   	    }, 1000);  
     }, 1500);    
-    
+    */
     
   } else {
     centered = null;
@@ -149,9 +152,9 @@ function click(d) {
 	    _self.h = 400;
 	    _self.margin = {
 	        top: 50,
-	        right: 120,
+	        right: 90,
 	        bottom: 60,
-	        left: 300
+	        left: 0
 	    };
 	    _self.width = _self.w - _self.margin.left - _self.margin.right;
 	    _self.height = _self.h - _self.margin.top - _self.margin.bottom;
@@ -183,7 +186,9 @@ function click(d) {
 	            .attr("width", _self.w)
 	            .attr("height", _self.h)
 	            .append("g")
-	            .attr("transform", "translate(" + _self.margin.left + "," + _self.margin.top + ")");
+	            //.attr("transform", "translate(" + _self.margin.left + "," + _self.margin.top + ")");
+	            .attr("transform", "translate(" + 30 + "," + _self.margin.top + ")");
+
 	        //
 	        //  Use Clipping to hide chart mechanics
 	        //
@@ -329,13 +334,10 @@ function click(d) {
 	            .attr("d", function (d) {
 	            return _self.area(d.Data);
 	        })
-	            .style("fill", function (d) {
-	            return _self.color(d.Name);
-	        })
+	            //.style("fill", function (d) { return _self.color(d.Name);} )
+	            .style("fill", "green")
 	            .style("fill-opacity", .25)
-	            .style("stroke", function (d) {
-	            return _self.color(d.Name);
-	        });
+	            .style("stroke", function (d) { return _self.color(d.Name); });
 	        //
 	        //  Legend 
 	        //
@@ -345,13 +347,10 @@ function click(d) {
 	            .attr("class", "Legend");
 	        _self.Legend.append("circle")
 	            .attr("r", 4)
-	            .style("fill", function (d) {
-	            return _self.color(d.Name);
-	        })
+	            .style("fill", "green")
+	            //.style("fill", function (d) { return _self.color(d.Name);})
 	            .style("fill-opacity", .5)
-	            .style("stroke", function (d) {
-	            return _self.color(d.Name);
-	        })
+	            .style("stroke", function (d) { return _self.color(d.Name);})
 	            .attr("transform", function (d, i) {
 	            return "translate(" + (_self.width + 6) + "," + (10 + (i * 20)) + ")";
 	        });
