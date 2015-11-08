@@ -67,7 +67,8 @@ public class HeatMap implements Serializable {
 		Color[] colors = new Color[steps];
         
         final Color WHITE = new Color(255,255,255);
-        final Color PIVOTAL = new Color(7,63,7);
+        //final Color PIVOTAL = new Color(7,63,7);
+        final Color PIVOTAL = new Color(124,2,145);
         
         for (int i = 0; i < steps; i++) {
             
