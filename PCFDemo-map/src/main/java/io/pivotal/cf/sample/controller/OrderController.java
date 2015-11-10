@@ -45,8 +45,7 @@ public class OrderController {
 	
 	private static Map<String,Queue<Order>> stateOrdersMap = new HashMap<String, Queue<Order>>();
 	private static RabbitClient client ;
-	private CFClient pwsclient = new CFClient("bbertka@pivotal.io","karma1976", "https://api.run.pivotal.io" );
-	//private CFClient pwsclient = new CFClient("email","password", "https://api-endpoint");
+	private CFClient pwsclient = new CFClient("email","password", "https://api-endpoint");
 
 
 	boolean generatingData = false;
