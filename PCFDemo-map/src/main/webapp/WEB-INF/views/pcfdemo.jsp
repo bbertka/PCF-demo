@@ -58,7 +58,7 @@
 
 
       <!-- Begin Left Column content -->  
-      <div class="col-sm-2">
+      <div class="col-sm-2" id="left-side-knobs">
       <c:if test="${producerApps != null }">
       	<c:forEach items = "${producerApps}" var="app">
          <!-- Begin Knob content -->  
