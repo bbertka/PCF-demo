@@ -1,4 +1,31 @@
-                    
+function getApplications(){
+	$.get("getApplications", function(data){
+		var arrg = JSON.parse(data);
+		for(var i = 0; i < arrg.length; i++) {
+		    var obj = arrg[i];
+		    console.log(arrg.name);
+		}
+		var str = JSON.stringify(arrg, undefined, 4);
+		$("#environment").html('<pre>'+str+'</pre>' ).show();
+	});
+}   
+
+
+window.onload = getApplications;
+
+function getEnvironment(){
+	$.get("getEnvironment", function(data){
+		var arrg = JSON.parse(data);
+		delete arrg["VCAP_APPLICATION"];
+		delete arrg["VCAP_SERVICES"];
+		delete arrg["JAVA_OPTS"];
+		var str = JSON.stringify(arrg, undefined, 4);
+		$("#environment").html('<pre>'+str+'</pre>' ).show();
+	});
+}              
+
+
+
 function stopStream(){
 	$.get("stopStream", function(data){
 		$( "#autogenMsg" ).text( data ).show().fadeOut( 3000 );
@@ -11,6 +38,7 @@ function killApp(){
     });       
 }                       
 var hits = {};
+
 
 var updateHistogram = function() { 
 	$.getJSON( "getHeatMap", function(data) {
@@ -29,7 +57,7 @@ setTimeout(updateHistogram, 1000);
 var selectedState;
 
 var width = 960,
-    height = 500,
+    height = 485,
     centered;
 
 var projection = d3.geo.albersUsa()
@@ -152,7 +180,7 @@ function click(d) {
 	    _self.h = 400;
 	    _self.margin = {
 	        top: 50,
-	        right: 90,
+	        right: 120,
 	        bottom: 60,
 	        left: 0
 	    };
@@ -452,7 +480,7 @@ function click(d) {
 	chart2.MaxValue = 100;
 
 
-	chart2.addSeries("Orders")
+	chart2.addSeries("Activations")
 
 	var updateData = function() { 
 		$.get("getData?state="+selectedState, function(data){

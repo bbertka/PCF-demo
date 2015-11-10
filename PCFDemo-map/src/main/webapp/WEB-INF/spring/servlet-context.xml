@@ -32,14 +32,15 @@
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
 
-	<bean
-		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+	<!-- 
 		<property name="mediaTypes">
 			<map>
 				<entry key="html" value="text/html" />
 				<entry key="json" value="application/json" />
 			</map>
 		</property>
+		-->
 		<property name="viewResolvers">
 			<list>
 				<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
@@ -55,12 +56,14 @@
 		<property name="defaultViews">
 			<list>
 				<bean
-					class="org.springframework.web.servlet.view.json.MappingJacksonJsonView">
+					class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
 					<property name="prefixJson" value="true" />
 				</bean>
 			</list>
 		</property>
 	</bean>
+ 
+
  
 	<context:property-placeholder location="classpath:app.properties" />
 <!-- 

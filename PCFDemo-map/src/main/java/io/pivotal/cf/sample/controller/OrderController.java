@@ -5,9 +5,18 @@ import io.pivotal.cf.sample.Order;
 import io.pivotal.cf.sample.OrderConsumer;
 import io.pivotal.cf.sample.RabbitClient;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.List;
+
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+
+import java.io.IOException;
+import java.io.StringWriter;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 
@@ -21,6 +30,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import io.pivotal.cf.sample.CFClient;
+
+import org.cloudfoundry.client.lib.domain.CloudApplication;
 
 /**
  * Handles requests for the application home page.
@@ -33,6 +45,8 @@ public class OrderController {
 	
 	private static Map<String,Queue<Order>> stateOrdersMap = new HashMap<String, Queue<Order>>();
 	private static RabbitClient client ;
+	private CFClient pwsclient = new CFClient("email","password", "https://api-endpoint");
+
 
 	boolean generatingData = false;
 	
@@ -42,15 +56,14 @@ public class OrderController {
 	
 	
     public OrderController(){
-    	
+  
     	client = RabbitClient.getInstance();
-    	
+
     	for (int i=0; i<HeatMap.states.length; i++){
     		stateOrdersMap.put(HeatMap.states[i], new ArrayBlockingQueue<Order>(10));
     	}
-    	threadConsumer.start();
 
-    	
+    	threadConsumer.start();
     }
 	
 	private int getOrderSum(String state){
@@ -76,8 +89,9 @@ public class OrderController {
 	}
     
 	@RequestMapping(value = "/")
-	public String home(Model model) {
+	public String home(Model model) throws JsonGenerationException, JsonMappingException, IOException {
 		model.addAttribute("rabbitURI", client.getRabbitURI());	
+		model.addAttribute("producerApps", this.getProducers() );
         return "WEB-INF/views/pcfdemo.jsp";
     }
 
@@ -116,8 +130,38 @@ public class OrderController {
 
     	heatMap.assignColors();
     	return heatMap;
+    }
+    
 
-    }    	
+    @RequestMapping(value="/getEnvironment")
+    public @ResponseBody String getEnvironment() throws IOException {
+    	Map<String, String> env = System.getenv();
+    	String mapAsJson = new ObjectMapper().writeValueAsString(env);
+    	return mapAsJson;
+    }
+    
 
+    
+    /*
+     * These functions get the list of producer apps from the CF Java client
+     */
+	@RequestMapping(value="/getApplications")
+	public @ResponseBody String getApplications() throws JsonGenerationException, JsonMappingException, IOException {
+		String mapAsJson = new ObjectMapper().writeValueAsString(getProducers());
+		return mapAsJson;
+	}
+	
+	public ArrayList<CloudApplication> getProducers() throws JsonGenerationException, JsonMappingException, IOException {
+		List<CloudApplication> applications = this.pwsclient.getApplications();
+		ArrayList<CloudApplication> producers = new ArrayList<CloudApplication>(applications.size());
+        for ( CloudApplication app : applications ) {
+        	
+        	//bbertka: This should use some ENV prefix
+        	if(app.getName().startsWith("pcfdemo-producer") ){
+        		producers.add(app);
+        	}        			
+        }
+        return producers;
+	}
 
 }

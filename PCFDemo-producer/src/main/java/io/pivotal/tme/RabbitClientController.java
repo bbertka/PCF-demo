@@ -47,7 +47,7 @@ public class RabbitClientController implements CommandLineRunner {
 					}
 				
 					try{
-					   Thread.sleep(10);
+					   Thread.sleep(3000);
 				    }
 				    catch(Exception e){ return; }
 				}

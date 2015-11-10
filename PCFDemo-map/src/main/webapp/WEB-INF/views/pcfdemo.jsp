@@ -25,80 +25,8 @@
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.knob.js"></script>
-        <script>
-            $(function($) {
-                $(".knob").knob({
-                    change : function (value) {
-                        //console.log("change : " + value);
-                    },
-                    release : function (value) {
-                        //console.log(this.$.attr('value'));
-                        console.log("release : " + value);
-                    },
-                    cancel : function () {
-                        console.log("cancel : ", this);
-                    },
-                    /*format : function (value) {
-                        return value + '%';
-                    },*/
-                    draw : function () {
-                        // "tron" case
-                        if(this.$.data('skin') == 'tron') {
-                            this.cursorExt = 0.3;
-                            var a = this.arc(this.cv)  // Arc
-                                , pa                   // Previous arc
-                                , r = 1;
-                            this.g.lineWidth = this.lineWidth;
-                            if (this.o.displayPrevious) {
-                                pa = this.arc(this.v);
-                                this.g.beginPath();
-                                this.g.strokeStyle = this.pColor;
-                                this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, pa.s, pa.e, pa.d);
-                                this.g.stroke();
-                            }
-                            this.g.beginPath();
-                            this.g.strokeStyle = r ? this.o.fgColor : this.fgColor ;
-                            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, a.s, a.e, a.d);
-                            this.g.stroke();
-                            this.g.lineWidth = 2;
-                            this.g.beginPath();
-                            this.g.strokeStyle = this.o.fgColor;
-                            this.g.arc( this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false);
-                            this.g.stroke();
-                            return false;
-                        }
-                    }
-                });
-                // Example of infinite knob, iPod click wheel
-                var v, up=0,down=0,i=0
-                    ,$idir = $("div.idir")
-                    ,$ival = $("div.ival")
-                    ,incr = function() { i++; $idir.show().html("+").fadeOut(); $ival.html(i); }
-                    ,decr = function() { i--; $idir.show().html("-").fadeOut(); $ival.html(i); };
-                $("input.infinite").knob(
-                                    {
-                                    min : 0
-                                    , max : 20
-                                    , stopper : false
-                                    , change : function () {
-                                                    if(v > this.cv){
-                                                        if(up){
-                                                            decr();
-                                                            up=0;
-                                                        }else{up=1;down=0;}
-                                                    } else {
-                                                        if(v < this.cv){
-                                                            if(down){
-                                                                incr();
-                                                                down=0;
-                                                            }else{down=1;up=0;}
-                                                        }
-                                                    }
-                                                    v = this.cv;
-                                                }
-                                    });
-            });
-        </script>
+<script type="text/javascript" src="resources/js/mapknob.js"></script>
+        
         
 </head>
 
@@ -118,7 +46,7 @@
        </div>
        <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="https://keen.io">Instance hosted at &nbsp;<%=request.getLocalAddr() %>:<%=request.getLocalPort() %></a></li>
+          <!-- <li><a href="https://keen.io">Instance hosted at &nbsp;<%=request.getLocalAddr() %>:<%=request.getLocalPort() %></a></li> -->
         </ul>
        </div>
     </div>
@@ -127,63 +55,52 @@
   <!-- Begin page content -->  
   <div class="container-fluid tester123">
     <div class="row">
+
+
+      <!-- Begin Left Column content -->  
       <div class="col-sm-2">
+      <c:if test="${producerApps != null }">
+      	<c:forEach items = "${producerApps}" var="app">
+         <!-- Begin Knob content -->  
         <div class="row">
           <div class="col-sm-12">
             <div class="chart-wrapper">
               <div class="chart-title">
-                Instance 1 Utilization
+                ${app.name}
               </div>
               <div class="chart-stage">
-                  <input class="knob" data-fgcolor="#3C763D" data-thickness=".2" data-readonly="true" value="80" readonly="readonly">
-              </div>
+		      	<c:choose>
+			  	<c:when test="${app.state != 'STOPPED'}">
+                  <input class="knob" data-fgcolor="#3C763D" data-thickness=".2" data-readonly="true" value="${app.instances}" readonly="readonly">
+			  	</c:when>
+			  	<c:otherwise>
+                  <input class="knob" data-fgcolor="#D93D2E" data-thickness=".2" data-readonly="true" value="${app.instances}" readonly="readonly">
+			  	</c:otherwise>
+		      	</c:choose>  
+		      </div>
               <div class="chart-notes">
-                Notes about this chart
+                Status: ${app.state}
               </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="chart-wrapper">
-              <div class="chart-title">
-                Instance 2 Utilization
-              </div>
-              <div class="chart-stage">
-                  <input class="knob" data-fgcolor="#428DC9" data-thickness=".2"  data-readonly="true" value="75" readonly="readonly">
-              </div>
-              <div class="chart-notes">
-                Notes about this chart
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="chart-wrapper">
-              <div class="chart-title">
-                Instance 3 Utilization
-              </div>
-              <div class="chart-stage">
-                  <input class="knob" data-fgcolor="#64509E" data-thickness=".2" data-readonly="true" value="69" readonly="readonly">
-              </div>
-              <div class="chart-notes">
-                Notes about this chart
-              </div>
-            </div>
-          </div>
-        </div>
+        </div>     	
+      	</c:forEach>
+      </c:if>
+      <!-- End Left Column content -->
       </div>
+      
+      
+      <!-- Begin Center Column content -->  
       <div class="col-sm-8">
+      <div class="row">
+       <div class="col-sm-12">
         <div class="chart-wrapper">
           <div class="chart-title">
             <b>Activation density per US State (tip: click on a state for details)</b>
           </div>
           <div class="chart-stage">
-	          <!-- <div id="maincontent"> -->
 	          <div id="stateOrders" align="center" ></div>
   		      <div id="usmap" align="center"></div>
-	         <!--  </div> -->           
 	      </div>
           <div class="chart-notes">
 		      <c:choose>
@@ -197,7 +114,31 @@
 		  </div>
         </div>
       </div>
+      </div>
+      <div class="row">
+       <div class="col-sm-12">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+           Debug PCF Instance Environment
+          </div>
+          <div class="chart-stage">
+             <div id="autogenMsg" align="center"> </div><br>
+             <div id="environment">Environment Variables etc</div>
+	      </div>
+          <div class="chart-notes">
+		      This box is for debug log messages and such --  will go away for prod deploy       
+		  </div>
+        </div>
+      </div>
+      </div>
+      
+      
+      </div>
+      
+      <!-- Begin Right Column content -->  
       <div class="col-sm-2">
+
+        <!-- Begin Knob content -->
         <div class="row">
           <div class="col-sm-12">
             <div class="chart-wrapper">
@@ -213,6 +154,8 @@
             </div>
           </div>
         </div>      
+
+        <!-- Begin Knob content -->
         <div class="row">
           <div class="col-sm-12">
             <div class="chart-wrapper">
@@ -228,6 +171,8 @@
             </div>
           </div>
         </div>
+
+        <!-- Begin Knob content -->
         <div class="row">
           <div class="col-sm-12">
             <div class="chart-wrapper">
@@ -243,7 +188,10 @@
             </div>
           </div>
         </div>
+
+      <!-- End Right Column content -->  
       </div>
+
     </div>
 
   <!-- Begin Footer content -->  
