@@ -8,9 +8,9 @@ function getApplications(){
 		var leftsideknobs = document.getElementById("left-side-knobs");
 		for(var i = 0; i < arrg.length; i++) {
 		    var obj = arrg[i];
-		    console.log(obj["name"]);
-		    console.log(obj["instances"]);
-		    console.log(obj["state"]);
+		    //console.log(obj["name"]);
+		    //console.log(obj["instances"]);
+		    //console.log(obj["state"]);
 		    
 		    var div1 = document.createElement('div'); 
 		    div1.className = "row";
@@ -70,8 +70,9 @@ function getApplications(){
 		    $("#left-side-knobs").append(div1);
 		}
 		
-		var str = JSON.stringify(arrg, undefined, 4);
-		$("#environment").html('<pre>'+str+'</pre>' ).show();
+		//Unhide to show debug in environment
+		//var str = JSON.stringify(arrg, undefined, 4);
+		//$("#environment").html('<pre>'+str+'</pre>' ).show();
 		
 		//Need to add these last otherwise the knob styling wont get applied to divs
 	    $('<script type="text/javascript" src="resources/js/mapknob.js"></' + 'script>').appendTo(document.body);
