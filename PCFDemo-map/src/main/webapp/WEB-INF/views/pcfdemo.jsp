@@ -110,6 +110,8 @@
         </div>
       </div>
       </div>
+      
+      <!-- Unhide to show environment
       <div class="row">
        <div class="col-sm-12">
         <div class="chart-wrapper">
@@ -126,7 +128,7 @@
         </div>
       </div>
       </div>
-      
+      -->
       
       </div>
       
