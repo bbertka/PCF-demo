@@ -2,17 +2,81 @@
  * Modify this to create a list of "left-side-knobs" Knobs (see pcfdemo.jsp)
  */
 function getApplications(){
+	console.log("Getting applications via CF API...")
 	$.get("getApplications", function(data){
 		var arrg = JSON.parse(data);
+		var leftsideknobs = document.getElementById("left-side-knobs");
 		for(var i = 0; i < arrg.length; i++) {
 		    var obj = arrg[i];
 		    console.log(obj["name"]);
 		    console.log(obj["instances"]);
 		    console.log(obj["state"]);
+		    
+		    var div1 = document.createElement('div'); 
+		    div1.className = "row";
+		    var div2 = document.createElement('div');
+		    div2.className = "col-sm-12";
+		    var div3 = document.createElement('div');
+		    div3.className = "chart-wrapper";
+		    var div4 = document.createElement('div');
+		    
+            //Create the Knob Graphic Name
+		    div4.className = "chart-title";
+		    div4.appendChild(document.createTextNode(obj["name"]));
 
+		    //Create the Knob Graphic main Circle
+		    var div5 = document.createElement('div');
+		    div5.className = "chart-stage";
+		    var color = "#D93D2E";  //red
+		    if(obj["state"] != 'STOPPED'){
+		    	color = "#3C763D"; //green
+		    }
+		    
+		    var input = document.createElement('input');
+		    input.className = "knob";
+		    
+		    var fgcolor = document.createAttribute('data-fgcolor');
+		    fgcolor.value = color;
+		    input.setAttributeNode(fgcolor);
+		    
+		    var thickness = document.createAttribute('data-thickness');
+		    thickness.value = ".2";
+			input.setAttributeNode(thickness);
+
+		    var readonly = document.createAttribute('data-readonly');
+		    readonly.value = "true";
+			input.setAttributeNode(readonly);
+
+		    var instances = document.createAttribute('value');
+		    instances.value = obj["instances"];
+			input.setAttributeNode(instances);
+			
+		    var readonly1 = document.createAttribute('readonly');
+		    readonly1.value = "readonly";
+			input.setAttributeNode(readonly1);
+						
+			div5.appendChild(input); //add graphic to node
+		    
+			//Create chart Notes
+		    var div6 = document.createElement('div');
+		    div6.className = "chart-notes";
+		    div6.appendChild(document.createTextNode(obj["state"]));
+		    
+		    div3.appendChild(div4); //add chart name
+		    div3.appendChild(div5); //add chart graphic
+		    div3.appendChild(div6); //add chart notes
+		    div2.appendChild(div3); //add chart to tile 
+		    div1.appendChild(div2); //add tile as row
+		    $("#left-side-knobs").append(div1);
 		}
+		
 		var str = JSON.stringify(arrg, undefined, 4);
 		$("#environment").html('<pre>'+str+'</pre>' ).show();
+		
+		//Need to add these last otherwise the knob styling wont get applied to divs
+	    $('<script type="text/javascript" src="resources/js/mapknob.js"></' + 'script>').appendTo(document.body);
+	    $('<script type="text/javascript" src="resources/js/jquery.knob.js"></' + 'script>').appendTo(document.body);
+
 	});
 }   
 
