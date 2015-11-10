@@ -22,12 +22,7 @@
 
 <!-- pivotal favicon -->
 <link rel="shortcut icon" href="resources/img/favicon.ico"/>
-
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript" src="resources/js/jquery.knob.js"></script>
-<script type="text/javascript" src="resources/js/mapknob.js"></script>
-        
-        
+  
 </head>
 
 <body class="application">
@@ -143,13 +138,13 @@
           <div class="col-sm-12">
             <div class="chart-wrapper">
               <div class="chart-title">
-                Completed Request
+                Service East Utilization
               </div>
               <div class="chart-stage">
                   <input class="knob" data-fgcolor="#9C1F25" data-thickness=".2"  data-readonly="true" value="66" readonly="readonly">
               </div>
               <div class="chart-notes">
-                Notes about this chart
+                Dummy Data
               </div>
             </div>
           </div>
@@ -160,13 +155,13 @@
           <div class="col-sm-12">
             <div class="chart-wrapper">
               <div class="chart-title">
-                In-Progress Requests
+                Service North Utilization
               </div>
               <div class="chart-stage">
                   <input class="knob" data-fgcolor="#D93D2E" data-thickness=".2"  data-readonly="true" value="52" readonly="readonly">
               </div>
               <div class="chart-notes">
-                Notes about this chart
+                 Dummy Data
               </div>
             </div>
           </div>
@@ -177,13 +172,13 @@
           <div class="col-sm-12">
             <div class="chart-wrapper">
               <div class="chart-title">
-                Reset Requests
+                Service South Utilization
               </div>
               <div class="chart-stage">
                   <input class="knob" data-fgcolor="#DFA933" data-thickness=".2" data-readonly="true" value="20" readonly="readonly">
               </div>
               <div class="chart-notes">
-                Notes about this chart
+                 Dummy Data
               </div>
             </div>
           </div>
@@ -214,6 +209,9 @@
 <script type="text/javascript" src="resources/js/holder.js"></script>
 <script type="text/javascript" src="resources/js/keen.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.knob.js"></script>
-
+<!-- 
+<script type="text/javascript" src="resources/js/jquery.knob.js"></script>
+<script type="text/javascript" src="resources/js/mapknob.js"></script>
+-->
 
 </body>
