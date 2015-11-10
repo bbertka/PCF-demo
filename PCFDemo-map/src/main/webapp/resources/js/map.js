@@ -1,9 +1,15 @@
+/*
+ * Modify this to create a list of "left-side-knobs" Knobs (see pcfdemo.jsp)
+ */
 function getApplications(){
 	$.get("getApplications", function(data){
 		var arrg = JSON.parse(data);
 		for(var i = 0; i < arrg.length; i++) {
 		    var obj = arrg[i];
-		    console.log(arrg.name);
+		    console.log(obj["name"]);
+		    console.log(obj["instances"]);
+		    console.log(obj["state"]);
+
 		}
 		var str = JSON.stringify(arrg, undefined, 4);
 		$("#environment").html('<pre>'+str+'</pre>' ).show();
