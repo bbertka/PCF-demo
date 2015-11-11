@@ -2,28 +2,6 @@
 applications:
 - name: pcfdemo-producer-East
   memory: 512M 
-  instances: 3
-  path: build/libs/demo-0.0.1-SNAPSHOT.jar
-  timeout: 90
-  env:
-   JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
-  services:
-   - comcast-rabbit
-  domain: cfapps.io
-
-- name: pcfdemo-producer-North
-  memory: 512M
-  instances: 2
-  path: build/libs/demo-0.0.1-SNAPSHOT.jar
-  timeout: 90
-  env:
-   JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
-  services:
-   - comcast-rabbit
-  domain: cfapps.io
-
-- name: pcfdemo-producer-South
-  memory: 512M
   instances: 1
   path: build/libs/demo-0.0.1-SNAPSHOT.jar
   timeout: 90
@@ -31,4 +9,3 @@ applications:
    JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
   services:
    - comcast-rabbit
-  domain: cfapps.io

@@ -5,25 +5,27 @@ import io.pivotal.cf.sample.Order;
 import io.pivotal.cf.sample.OrderConsumer;
 import io.pivotal.cf.sample.RabbitClient;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.List;
+import java.util.*;
 
+
+import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.IOException;
-import java.io.StringWriter;
-import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 
-import javax.servlet.ServletContext;
-
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,31 +34,36 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import io.pivotal.cf.sample.CFClient;
 
-import org.cloudfoundry.client.lib.domain.CloudApplication;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
+@Configuration
+@PropertySource("classpath:/application.properties")
 public class OrderController {
-	
-	@Autowired
-	ServletContext context;
-	
+
 	private static Map<String,Queue<Order>> stateOrdersMap = new HashMap<String, Queue<Order>>();
-	private static RabbitClient client ;
-	private CFClient pwsclient = new CFClient("email","password", "https://api-endpoint");
+	private static RabbitClient client;
+	private CFClient _cf;
+	private String _username;
+	private String _password;
+	private String _endpoint;
 
-
-	boolean generatingData = false;
-	
 	static Logger logger = Logger.getLogger(OrderController.class);
 
 	Thread threadConsumer = new Thread (new OrderConsumer());
-	
-	
-    public OrderController(){
-  
+
+
+    public OrderController() {
+		//Create CF client
+		_username = System.getenv("CF_USERNAME");
+		_password = System.getenv("CF_PASSWORD");
+		_endpoint = System.getenv("CF_ENDPOINT");
+		_cf = new CFClient(_username, _password, "https://" + _endpoint);
+
+
     	client = RabbitClient.getInstance();
 
     	for (int i=0; i<HeatMap.states.length; i++){
@@ -65,32 +72,32 @@ public class OrderController {
 
     	threadConsumer.start();
     }
-	
+
 	private int getOrderSum(String state){
-		
+
 		int sum = 0;
 		Queue<Order> q  = stateOrdersMap.get(state);
 		Iterator<Order> it = q.iterator();
 		while (it.hasNext()){
 			sum += it.next().getAmount();
 		}
-		
+
 		return sum;
 	}
-    
 
-	
+
+
 	public static synchronized void registerOrder(Order order){
 		Queue<Order> orderQueue = stateOrdersMap.get(order.getState());
 		if (!orderQueue.offer(order)){
 			orderQueue.remove();
 			orderQueue.add(order);
-		}				
+		}
 	}
-    
+
 	@RequestMapping(value = "/")
 	public String home(Model model) throws JsonGenerationException, JsonMappingException, IOException {
-		model.addAttribute("rabbitURI", client.getRabbitURI());	
+		model.addAttribute("rabbitURI", client.getRabbitURI());
 		//model.addAttribute("producerApps", this.getProducers() );
         return "WEB-INF/views/pcfdemo.jsp";
     }
@@ -103,35 +110,42 @@ public class OrderController {
     	Order[] orders = q.toArray(new Order[]{});
     	return orders[orders.length-1].getAmount();
 
-    }    	
-    
+    }
+
 
     @RequestMapping(value="/getCompleteData")
     public @ResponseBody Map getCompleteData(){
     	return stateOrdersMap;
 
-    }    
+    }
 
-    
+	@RequestMapping(value="/clear")
+	public @ResponseBody boolean clear(){
+		for(Map.Entry<String, Queue<Order>> state : stateOrdersMap.entrySet()) {
+			state.getValue().clear();
+		}
+		return true;
+	}
+
+
     @RequestMapping(value="/killApp")
     public @ResponseBody String kill(){
 		logger.warn("Killing application instance");
-		System.exit(-1);    	
+		System.exit(-1);
     	return "Killed";
+    }
 
-    }       
-    
     @RequestMapping(value="/getHeatMap")
     public @ResponseBody HeatMap getHistograms(){
     	HeatMap heatMap = new HeatMap();
     	for (int i=0; i<HeatMap.states.length; i++){
     		heatMap.addOrderSum(HeatMap.states[i], getOrderSum(HeatMap.states[i]));
-    	}    	
+    	}
 
     	heatMap.assignColors();
     	return heatMap;
     }
-    
+
 
     @RequestMapping(value="/getEnvironment")
     public @ResponseBody String getEnvironment() throws IOException {
@@ -139,29 +153,67 @@ public class OrderController {
     	String mapAsJson = new ObjectMapper().writeValueAsString(env);
     	return mapAsJson;
     }
-    
 
-    
+
+
     /*
      * These functions get the list of producer apps from the CF Java client
      */
 	@RequestMapping(value="/getApplications")
-	public @ResponseBody String getApplications() throws JsonGenerationException, JsonMappingException, IOException {
-		String mapAsJson = new ObjectMapper().writeValueAsString(getProducers());
-		return mapAsJson;
+	public @ResponseBody List<?> getApplications() throws JSONException, IOException {
+		//String mapAsJson = new ObjectMapper().writeValueAsString(getProducers(true));
+		//return mapAsJson;
+		return getProducers(true);
 	}
-	
-	public ArrayList<CloudApplication> getProducers() throws JsonGenerationException, JsonMappingException, IOException {
-		List<CloudApplication> applications = this.pwsclient.getApplications();
-		ArrayList<CloudApplication> producers = new ArrayList<CloudApplication>(applications.size());
-        for ( CloudApplication app : applications ) {
-        	
-        	//bbertka: This should use some ENV prefix
-        	if(app.getName().startsWith("pcfdemo-producer") ){
-        		producers.add(app);
-        	}        			
-        }
-        return producers;
+
+	private List<?> getProducers(boolean reauthenticate) throws JSONException, IOException {
+		//Need to use REST API directly so we can filter appropriately
+		OAuth2AccessToken token = _cf.getToken();
+		logger.info("Token: " + token.getValue());
+
+		//pull a few variables about current CF env
+		String vcap_app = System.getenv("VCAP_APPLICATION");
+		logger.info("vcap: " + vcap_app);
+		JSONObject vcap = new JSONObject(vcap_app);
+		String space_guid = vcap.getString("space_id");
+		String app_name = vcap.getString("application_name");
+
+		RestTemplate template = new RestTemplate();
+		HttpHeaders auth = new HttpHeaders();
+		auth.set("Authorization","Bearer "+ token.getValue());
+		HttpEntity<String> entity = new HttpEntity<String>(auth);
+
+		try {
+			ResponseEntity<Map> response = template.exchange(
+					"http://api.vert.fe.gopivotal.com/v2/apps?q=space_guid:" + space_guid,
+					HttpMethod.GET,
+					entity,
+					Map.class);
+			logger.info("response: " + response);
+			logger.info("response map: " + response.getBody());
+			List<?> resources = (List<?>) response.getBody().get("resources");
+			logger.info("resources: " + resources);
+
+			//remove the demo map
+			List<Object> result = new ArrayList<Object>();
+			for(Object obj : resources) {
+				Map<String, Map<String,String>> app = (Map<String, Map<String,String>>) obj;
+				String name = app.get("entity").get("name");
+				logger.info("App: " + name);
+				if(name.equalsIgnoreCase(app_name)) continue;
+				result.add(obj);
+
+			}
+
+			return result;
+		} catch(Exception ex) {
+			if(reauthenticate) {
+				return getProducers(false);
+			}
+			ex.printStackTrace();
+		}
+		return new ArrayList<Object>();
 	}
+
 
 }

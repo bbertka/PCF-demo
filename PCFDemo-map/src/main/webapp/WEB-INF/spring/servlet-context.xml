@@ -25,7 +25,7 @@
 	
 
 
-	<context:component-scan base-package="io.pivotal"/>
+	<context:component-scan base-package="io.pivotal.cf.sample"/>
     <mvc:annotation-driven/>
     <mvc:resources mapping="/resources/**" location="/resources/" />
     
@@ -62,33 +62,4 @@
 			</list>
 		</property>
 	</bean>
- 
-
- 
-	<context:property-placeholder location="classpath:app.properties" />
-<!-- 
-	<cloud:rabbit-connection-factory id="connectionFactory" service-name="myrabbitmq"/>	
-
-	<rabbit:template id="amqpTemplate" connection-factory="connectionFactory" />
-
-	<rabbit:admin connection-factory="connectionFactory" />
-
-	<rabbit:queue name="ingest.queue" />
-
-	<rabbit:direct-exchange name="ingest.exchange">
-		<rabbit:bindings>
-			<rabbit:binding queue="ingest.queue" key="ingest.binding" />
-		</rabbit:bindings>
-	</rabbit:direct-exchange>
- -->
-
-<!-- 	
-	<beans profile="hawq">
-		<context:component-scan base-package="io.pivotal.cf.sample.controller" />
-
-
-	</beans>
--->		
-	
-
 </beans>

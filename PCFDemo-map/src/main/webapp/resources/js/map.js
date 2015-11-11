@@ -4,13 +4,13 @@
 function getApplications(){
 	console.log("Getting applications via CF API...")
 	$.get("getApplications", function(data){
-		var arrg = JSON.parse(data);
+		//console.log(data);
+		//var arrg = JSON.parse(data);
 		var leftsideknobs = document.getElementById("left-side-knobs");
-		for(var i = 0; i < arrg.length; i++) {
-		    var obj = arrg[i];
-		    //console.log(obj["name"]);
-		    //console.log(obj["instances"]);
-		    //console.log(obj["state"]);
+		$("#left-side-knobs").empty();
+		for(var i = 0; i < data.length; i++) {
+		    var obj = data[i]["entity"];
+			console.log(obj);
 		    
 		    var div1 = document.createElement('div'); 
 		    div1.className = "row";
@@ -83,6 +83,8 @@ function getApplications(){
 
 
 window.onload = getApplications;
+
+setInterval(getApplications, 2000);
 
 function getEnvironment(){
 	$.get("getEnvironment", function(data){
