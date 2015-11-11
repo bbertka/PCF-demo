@@ -18,9 +18,6 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -40,8 +37,6 @@ import org.springframework.web.client.RestTemplate;
  * Handles requests for the application home page.
  */
 @Controller
-@Configuration
-@PropertySource("classpath:/application.properties")
 public class OrderController {
 
 	private static Map<String,Queue<Order>> stateOrdersMap = new HashMap<String, Queue<Order>>();
