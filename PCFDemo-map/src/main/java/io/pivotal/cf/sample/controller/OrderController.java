@@ -189,7 +189,7 @@ public class OrderController {
 
 		try {
 			ResponseEntity<Map> response = template.exchange(
-					"http://api.vert.fe.gopivotal.com/v2/apps?q=space_guid:" + space_guid,
+					"http://"+this._endpoint+"/v2/apps?q=space_guid:" + space_guid,
 					HttpMethod.GET,
 					entity,
 					Map.class);
