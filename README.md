@@ -20,12 +20,15 @@ For convenience, a manifest which will push both micro-services at the same time
 
 A script for pushing to PWS is also provided, which will create a space called "pcf-demo", create the service required and push both micro-services to it.
 
+The manifest.yml file for the pcfdemo-map application must be update to set the appropriate CF API values; USERNAME, PASSWORD and ENDPOINT.  ENDPOINT should be specified specified in the format of 'api.some.url.to.com' (http:// is omitted)
+
+The pcfdemo-producer app(s) may be tailored to send data to target specific states.  To configure this set an env variable on the application called STATES and set the value to a comma-delimited list of states you wish to target.  E.G. STATES: "ny,nj,pa"
+
 Instructions for deployment on PCF
 - cf api [your cf api url]
 - cf login 
 - cf create-service p-rabbitmq standard myrabbit (for PWS: "cf create-service cloudamqp lemur myrabbit")
 - cf push
-
 
 Remember:  free RabbitMQ service on PWS (a.k.a. "CloudAMQP" plan "lemur") is limited to 3 connections max. For that, you can demo two instances of the map (still able to show self-healing and load-balancing) and one instance of the producer.
 
