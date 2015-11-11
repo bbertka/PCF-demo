@@ -110,7 +110,7 @@
         </div>
       </div>
       </div>
-      
+
       <!-- Unhide to show environment
       <div class="row">
        <div class="col-sm-12">
@@ -123,68 +123,20 @@
              <div id="environment">Environment Variables etc</div>
 	      </div>
           <div class="chart-notes">
-		      This box is for debug log messages and such --  will go away for prod deploy       
+		      This box is for debug log messages and such --  will go away for prod deploy
 		  </div>
         </div>
       </div>
       </div>
       -->
-      
+
       </div>
       
       <!-- Begin Right Column content -->  
-      <div class="col-sm-2">
+      <div class="col-sm-2" id="right-side-knobs">
 
         <!-- Begin Knob content -->
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="chart-wrapper">
-              <div class="chart-title">
-                Service East Utilization
-              </div>
-              <div class="chart-stage">
-                  <input class="knob" data-fgcolor="#9C1F25" data-thickness=".2"  data-readonly="true" value="66" readonly="readonly">
-              </div>
-              <div class="chart-notes">
-                Dummy Data
-              </div>
-            </div>
-          </div>
-        </div>      
 
-        <!-- Begin Knob content -->
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="chart-wrapper">
-              <div class="chart-title">
-                Service North Utilization
-              </div>
-              <div class="chart-stage">
-                  <input class="knob" data-fgcolor="#D93D2E" data-thickness=".2"  data-readonly="true" value="52" readonly="readonly">
-              </div>
-              <div class="chart-notes">
-                 Dummy Data
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Begin Knob content -->
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="chart-wrapper">
-              <div class="chart-title">
-                Service South Utilization
-              </div>
-              <div class="chart-stage">
-                  <input class="knob" data-fgcolor="#DFA933" data-thickness=".2" data-readonly="true" value="20" readonly="readonly">
-              </div>
-              <div class="chart-notes">
-                 Dummy Data
-              </div>
-            </div>
-          </div>
-        </div>
 
       <!-- End Right Column content -->  
       </div>
@@ -211,7 +163,7 @@
 <script type="text/javascript" src="resources/js/holder.js"></script>
 <script type="text/javascript" src="resources/js/keen.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.knob.js"></script>
-<!-- 
+<!--
 <script type="text/javascript" src="resources/js/jquery.knob.js"></script>
 <script type="text/javascript" src="resources/js/mapknob.js"></script>
 -->

@@ -38,7 +38,6 @@ public class OrderConsumer implements Runnable {
 			      Order order = new Order();
 			      order.setAmount(((Number)obj.get("amount")).intValue());
 			      order.setState((String)obj.get("state"));
-			     
 			      OrderController.registerOrder(order);
 				}
 				catch(Exception e){

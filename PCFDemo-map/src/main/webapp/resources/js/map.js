@@ -38,10 +38,6 @@ function getApplications(){
 		    var fgcolor = document.createAttribute('data-fgcolor');
 		    fgcolor.value = color;
 		    input.setAttributeNode(fgcolor);
-		    
-		    var thickness = document.createAttribute('data-thickness');
-		    thickness.value = ".2";
-			input.setAttributeNode(thickness);
 
 		    var readonly = document.createAttribute('data-readonly');
 		    readonly.value = "true";
@@ -54,6 +50,10 @@ function getApplications(){
 		    var readonly1 = document.createAttribute('readonly');
 		    readonly1.value = "readonly";
 			input.setAttributeNode(readonly1);
+
+			var max_scale = document.createAttribute('data-max');
+			max_scale.value = "5"
+			input.setAttributeNode(max_scale);
 						
 			div5.appendChild(input); //add graphic to node
 		    
@@ -69,22 +69,103 @@ function getApplications(){
 		    div1.appendChild(div2); //add tile as row
 		    $("#left-side-knobs").append(div1);
 		}
-		
-		//Unhide to show debug in environment
-		//var str = JSON.stringify(arrg, undefined, 4);
-		//$("#environment").html('<pre>'+str+'</pre>' ).show();
-		
+
 		//Need to add these last otherwise the knob styling wont get applied to divs
 	    $('<script type="text/javascript" src="resources/js/mapknob.js"></' + 'script>').appendTo(document.body);
 	    $('<script type="text/javascript" src="resources/js/jquery.knob.js"></' + 'script>').appendTo(document.body);
 
 	});
-}   
+}
+
+function getBackends(){
+	console.log("Getting backend metrics via CF API...");
+	$.get("getBackends", function(data) {
+		var rightsideknobs = document.getElementById("right-side-knobs");
+		$("#right-side-knobs").empty();
+
+		for (var i = 0; i < 3; i++) {
+			//var obj = data[i]["entity"];
+			//console.log(obj);
+
+			<!-- Begin Knob content -->
+			var div1 = document.createElement('div');
+			div1.className = "row";
+			var div2 = document.createElement('div');
+			div2.className = "col-sm-12";
+			var div3 = document.createElement('div');
+			div3.className = "chart-wrapper";
+			var div4 = document.createElement('div');
+
+			//Create the Knob Graphic Name
+			div4.className = "chart-title";
+			var element = document.createElement("b")
+			element.innerHTML = "Backend Provider - North"
+			div4.appendChild(element);
+
+			//Create the Knob Graphic main Circle
+			var div5 = document.createElement('div');
+			div5.className = "chart-stage";
+
+			var input = document.createElement('input');
+			input.className = "knob";
+
+			var fgcolor = document.createAttribute('data-fgcolor');
+			fgcolor.value = "#66CC66";
+			input.setAttributeNode(fgcolor);
+
+			var readonly = document.createAttribute('data-readonly');
+			readonly.value = "true";
+			input.setAttributeNode(readonly);
+
+			var instances = document.createAttribute('value');
+			instances.value = "12";
+			input.setAttributeNode(instances);
+
+			var readonly1 = document.createAttribute('readonly');
+			readonly1.value = "readonly";
+			input.setAttributeNode(readonly1);
+
+			var angle = document.createAttribute('data-angleOffset');
+			angle.value = "-125"
+			input.setAttributeNode(angle);
+
+			var arc = document.createAttribute('data-angleArc');
+			arc.value = "250"
+			input.setAttributeNode(arc);
+
+			div5.appendChild(input); //add graphic to node
+
+			//Create chart Notes
+			var div6 = document.createElement('div');
+			div6.className = "chart-notes";
+			var align = document.createAttribute('align');
+			align.value = "center";
+			div6.setAttributeNode(align);
+			div6.appendChild(document.createTextNode("** Platform Consumption **"));
+
+			div3.appendChild(div4); //add chart name
+			div3.appendChild(div5); //add chart graphic
+			div3.appendChild(div6); //add chart notes
+			div2.appendChild(div3); //add chart to tile
+			div1.appendChild(div2); //add tile as row
+			$("#right-side-knobs").append(div1);
+		}
+
+		//Need to add these last otherwise the knob styling wont get applied to divs
+		$('<script type="text/javascript" src="resources/js/mapknob.js"></' + 'script>').appendTo(document.body);
+		$('<script type="text/javascript" src="resources/js/jquery.knob.js"></' + 'script>').appendTo(document.body);
+	});
+}
 
 
-window.onload = getApplications;
-
+window.onload = function() {
+	getApplications();
+	getBackends();
+};
 setInterval(getApplications, 2000);
+setInterval(getBackends, 2000);
+
+
 
 function getEnvironment(){
 	$.get("getEnvironment", function(data){

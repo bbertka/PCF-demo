@@ -149,6 +149,15 @@ public class OrderController {
     	return mapAsJson;
     }
 
+	/*
+     * These functions get the list of producer apps from the CF Java client
+     */
+	@RequestMapping(value="/getBackends")
+	public @ResponseBody List<?> getABackends() throws JSONException, IOException {
+
+		return new ArrayList<Object>();
+	}
+
 
 
     /*
