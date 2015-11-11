@@ -66,10 +66,10 @@
               <div class="chart-stage">
 		      	<c:choose>
 			  	<c:when test="${app.state != 'STOPPED'}">
-                  <input class="knob" data-fgcolor="#3C763D" data-thickness=".2" data-readonly="true" value="${app.instances}" readonly="readonly">
+                  <input class="knob" data-max="8" data-fgcolor="#3C763D" data-thickness=".2" data-readonly="true" value="${app.instances}" readonly="readonly">
 			  	</c:when>
 			  	<c:otherwise>
-                  <input class="knob" data-fgcolor="#D93D2E" data-thickness=".2" data-readonly="true" value="${app.instances}" readonly="readonly">
+                  <input class="knob" data-max="8" data-fgcolor="#D93D2E" data-thickness=".2" data-readonly="true" value="${app.instances}" readonly="readonly">
 			  	</c:otherwise>
 		      	</c:choose>  
 		      </div>
@@ -195,7 +195,7 @@
      <hr>
       <div class="container-fluid">
       <p>
-      <div class="pull-left">©&nbsp;2015 Pivotal Software, Inc.</div>
+      <div class="pull-left">&copy;&nbsp;2015 Pivotal Software, Inc.</div>
       <div class="pull-right"><img src="resources/img/PoweredByPivotal.png" alt="Powered By Pivotal "></div>
       </div>
  
