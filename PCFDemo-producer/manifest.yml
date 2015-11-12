@@ -1,12 +1,32 @@
 ---
 applications:
-- name: pcfdemo-producer-East
+- name: East Customer Region
   memory: 512M 
+  instances: 3
+  path: build/libs/demo-0.0.1-SNAPSHOT.jar
+  timeout: 90
+  env:
+   JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
+   STATES: "pa,ny,nj"
+  services:
+   - comcast-rabbit
+- name: South Customer Region
+  memory: 512M
+  instances: 2
+  path: build/libs/demo-0.0.1-SNAPSHOT.jar
+  timeout: 90
+  env:
+   JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
+   STATES: "tx,nm,ok"
+  services:
+   - comcast-rabbit
+- name: West Customer Region
+  memory: 512M
   instances: 1
   path: build/libs/demo-0.0.1-SNAPSHOT.jar
   timeout: 90
   env:
    JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
-#   STATES: "pa,ny,nj"
+   STATES: "wa,or,id"
   services:
    - comcast-rabbit
