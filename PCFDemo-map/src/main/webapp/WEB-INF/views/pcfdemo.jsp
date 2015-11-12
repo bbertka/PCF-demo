@@ -54,36 +54,7 @@
 
       <!-- Begin Left Column content -->  
       <div class="col-sm-2" id="left-side-knobs">
-      <c:if test="${producerApps != null }">
-      	<c:forEach items = "${producerApps}" var="app">
-         <!-- Begin Knob content -->  
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="chart-wrapper">
-              <div class="chart-title">
-                ${app.name}
-              </div>
-              <div class="chart-stage">
-		      	<c:choose>
-			  	<c:when test="${app.state != 'STOPPED'}">
-                  <input class="knob" data-max="8" data-fgcolor="#3C763D" data-thickness=".2" data-readonly="true" value="${app.instances}" readonly="readonly">
-			  	</c:when>
-			  	<c:otherwise>
-                  <input class="knob" data-max="8" data-fgcolor="#D93D2E" data-thickness=".2" data-readonly="true" value="${app.instances}" readonly="readonly">
-			  	</c:otherwise>
-		      	</c:choose>  
-		      </div>
-              <div class="chart-notes">
-                Status: ${app.state}
-              </div>
-            </div>
-          </div>
-        </div>     	
-      	</c:forEach>
-      </c:if>
-      <!-- End Left Column content -->
-      </div>
-      
+      </div><!-- End Left Column content -->
       
       <!-- Begin Center Column content -->  
       <div class="col-sm-8">
@@ -100,10 +71,10 @@
           <div class="chart-notes">
 		      <c:choose>
 			  <c:when test="${rabbitURI != null}">
-				Status: subscriber activation data streaming from RabbitMQ			
+				Status: connected, receiving subscriber data		
 			  </c:when>
 			  <c:otherwise>
-				<b>Status: no RabbitMQ service bound - streaming is not active</b>
+				Status: not connected
 			  </c:otherwise>
 		      </c:choose>          
 		  </div>
@@ -134,12 +105,8 @@
       
       <!-- Begin Right Column content -->  
       <div class="col-sm-2" id="right-side-knobs">
-
-        <!-- Begin Knob content -->
-
-
-      <!-- End Right Column content -->  
-      </div>
+      </div><!-- End Right Column content -->  
+      
 
     </div>
 

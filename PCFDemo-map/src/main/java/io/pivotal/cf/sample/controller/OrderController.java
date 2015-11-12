@@ -150,15 +150,12 @@ public class OrderController {
     }
 
 	/*
-     * These functions get the list of producer apps from the CF Java client
+     * Returns current list of apps, but we can change
      */
 	@RequestMapping(value="/getBackends")
-	public @ResponseBody List<?> getABackends() throws JSONException, IOException {
-
-		return new ArrayList<Object>();
+	public @ResponseBody List<?> getBackends() throws JSONException, IOException {
+		return getProducers(true);
 	}
-
-
 
     /*
      * These functions get the list of producer apps from the CF Java client
@@ -169,7 +166,7 @@ public class OrderController {
 		//return mapAsJson;
 		return getProducers(true);
 	}
-
+	
 	private List<?> getProducers(boolean reauthenticate) throws JSONException, IOException {
 		//Need to use REST API directly so we can filter appropriately
 		OAuth2AccessToken token = _cf.getToken();

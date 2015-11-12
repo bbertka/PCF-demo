@@ -5,12 +5,11 @@ function getApplications(){
 	console.log("Getting applications via CF API...")
 	$.get("getApplications", function(data){
 		//console.log(data);
-		//var arrg = JSON.parse(data);
 		var leftsideknobs = document.getElementById("left-side-knobs");
 		$("#left-side-knobs").empty();
 		for(var i = 0; i < data.length; i++) {
 		    var obj = data[i]["entity"];
-			console.log(obj);
+			//console.log(obj);
 		    
 		    var div1 = document.createElement('div'); 
 		    div1.className = "row";
@@ -22,14 +21,18 @@ function getApplications(){
 		    
             //Create the Knob Graphic Name
 		    div4.className = "chart-title";
-		    div4.appendChild(document.createTextNode(obj["name"]));
-
+		    var element = document.createElement("b");
+			element.innerHTML = obj["name"];
+			div4.appendChild(element);
+			
 		    //Create the Knob Graphic main Circle
 		    var div5 = document.createElement('div');
 		    div5.className = "chart-stage";
 		    var color = "#D93D2E";  //red
+		    var status = "Stopped Activation Instances";
 		    if(obj["state"] != 'STOPPED'){
-		    	color = "#3C763D"; //green
+		    	color = "#70AD48"; //comcast green
+		    	status = "Running Activation Instances";
 		    }
 		    
 		    var input = document.createElement('input');
@@ -60,7 +63,10 @@ function getApplications(){
 			//Create chart Notes
 		    var div6 = document.createElement('div');
 		    div6.className = "chart-notes";
-		    div6.appendChild(document.createTextNode(obj["state"]));
+			var align = document.createAttribute('align');
+			align.value = "center";
+			div6.setAttributeNode(align);
+		    div6.appendChild(document.createTextNode(status));
 		    
 		    div3.appendChild(div4); //add chart name
 		    div3.appendChild(div5); //add chart graphic
@@ -83,11 +89,29 @@ function getBackends(){
 		var rightsideknobs = document.getElementById("right-side-knobs");
 		$("#right-side-knobs").empty();
 
-		for (var i = 0; i < 3; i++) {
-			//var obj = data[i]["entity"];
-			//console.log(obj);
-
-			<!-- Begin Knob content -->
+		var producer_instances = 0;
+		for(var i = 0; i < data.length; i++) {
+		    var obj = data[i]["entity"];
+		    if(obj["state"] != 'STOPPED'){
+		    	producer_instances += obj["instances"];
+		    }
+		}
+		
+		var backend_threshold = 5; //this value matches left side knob scale
+		var ratio = Math.ceil(producer_instances/backend_threshold);
+		
+		for(var i = 0; i < ratio; i++){
+			var dial_color = "#72AE4A"; //green
+			var dial_value = 20*Math.floor(producer_instances/ratio);
+			
+			if(dial_value <= 33){
+				dial_color = "#72AE4A"; //green
+			}else if(dial_value > 33 && dial_value <= 66){
+				dial_color = "#E0AC38"; //orange
+			}else{
+				dial_color = "#D93C2E"; //red
+			}
+			
 			var div1 = document.createElement('div');
 			div1.className = "row";
 			var div2 = document.createElement('div');
@@ -99,7 +123,7 @@ function getBackends(){
 			//Create the Knob Graphic Name
 			div4.className = "chart-title";
 			var element = document.createElement("b")
-			element.innerHTML = "Backend Provider - North"
+			element.innerHTML = "Backend System " + (i+1);
 			div4.appendChild(element);
 
 			//Create the Knob Graphic main Circle
@@ -108,9 +132,9 @@ function getBackends(){
 
 			var input = document.createElement('input');
 			input.className = "knob";
-
+			
 			var fgcolor = document.createAttribute('data-fgcolor');
-			fgcolor.value = "#66CC66";
+			fgcolor.value = dial_color;
 			input.setAttributeNode(fgcolor);
 
 			var readonly = document.createAttribute('data-readonly');
@@ -118,7 +142,7 @@ function getBackends(){
 			input.setAttributeNode(readonly);
 
 			var instances = document.createAttribute('value');
-			instances.value = "12";
+			instances.value = dial_value;
 			input.setAttributeNode(instances);
 
 			var readonly1 = document.createAttribute('readonly');
@@ -141,7 +165,7 @@ function getBackends(){
 			var align = document.createAttribute('align');
 			align.value = "center";
 			div6.setAttributeNode(align);
-			div6.appendChild(document.createTextNode("** Platform Consumption **"));
+			div6.appendChild(document.createTextNode("Platform Consumption %"));
 
 			div3.appendChild(div4); //add chart name
 			div3.appendChild(div5); //add chart graphic
