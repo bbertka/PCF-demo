@@ -120,19 +120,14 @@
  
 </div>
   
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 <script type="text/javascript" src="resources/js/bootstrap.min.js"></script>      
-<script type="text/javascript" src="http://d3js.org/d3.v2.min.js?2.9.6"></script>
+<script type="text/javascript" src="https://d3js.org/d3.v2.min.js?2.9.6"></script>
 <script type="text/javascript" src="resources/js/rainbowvis.js"></script>
 <script type="text/javascript" src="resources/js/histograms.js"></script>
 <script type="text/javascript" src="resources/js/map.js"></script>
 <script type="text/javascript" src="resources/js/holder.js"></script>
 <script type="text/javascript" src="resources/js/keen.min.js"></script>
 <script type="text/javascript" src="resources/js/jquery.knob.js"></script>
-<!--
-<script type="text/javascript" src="resources/js/jquery.knob.js"></script>
-<script type="text/javascript" src="resources/js/mapknob.js"></script>
--->
-
 </body>

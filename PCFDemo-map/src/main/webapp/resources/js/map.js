@@ -30,10 +30,13 @@ function getApplications(){
 		    div5.className = "chart-stage";
 		    var color = "#D93D2E";  //red
 		    var status = "Stopped Activation Instances";
-		    if(obj["state"] != 'STOPPED'){
+		    if(obj["state"] == 'STARTED' && obj["package_state"] != 'PENDING'){
 		    	color = "#70AD48"; //comcast green
 		    	status = "Running Activation Instances";
-		    }
+		    } else if(obj["state"] == 'PENDING' || obj["package_state"] == 'PENDING'){
+				color = "#E0AC38"; //comcast orange
+				status = "Starting Activation Instances";
+			}
 		    
 		    var input = document.createElement('input');
 		    input.className = "knob";
@@ -55,7 +58,7 @@ function getApplications(){
 			input.setAttributeNode(readonly1);
 
 			var max_scale = document.createAttribute('data-max');
-			max_scale.value = "5"
+			max_scale.value = "8"
 			input.setAttributeNode(max_scale);
 						
 			div5.appendChild(input); //add graphic to node
@@ -123,7 +126,7 @@ function getBackends(){
 			//Create the Knob Graphic Name
 			div4.className = "chart-title";
 			var element = document.createElement("b")
-			element.innerHTML = "Backend System " + (i+1);
+			element.innerHTML = "Backend Provider";
 			div4.appendChild(element);
 
 			//Create the Knob Graphic main Circle
@@ -142,7 +145,75 @@ function getBackends(){
 			input.setAttributeNode(readonly);
 
 			var instances = document.createAttribute('value');
-			instances.value = dial_value;
+			instances.value = (dial_value - 10); //don't want it to look like we actually hit 100%
+			input.setAttributeNode(instances);
+
+			var readonly1 = document.createAttribute('readonly');
+			readonly1.value = "readonly";
+			input.setAttributeNode(readonly1);
+
+			var angle = document.createAttribute('data-angleOffset');
+			angle.value = "-125"
+			input.setAttributeNode(angle);
+
+			var arc = document.createAttribute('data-angleArc');
+			arc.value = "250"
+			input.setAttributeNode(arc);
+
+			div5.appendChild(input); //add graphic to node
+
+			//Create chart Notes
+			var div6 = document.createElement('div');
+			div6.className = "chart-notes";
+			var align = document.createAttribute('align');
+			align.value = "center";
+			div6.setAttributeNode(align);
+			div6.appendChild(document.createTextNode("Platform Consumption %"));
+
+			div3.appendChild(div4); //add chart name
+			div3.appendChild(div5); //add chart graphic
+			div3.appendChild(div6); //add chart notes
+			div2.appendChild(div3); //add chart to tile
+			div1.appendChild(div2); //add tile as row
+			$("#right-side-knobs").append(div1);
+		}
+
+		//if there aren't any backend we'll fake atleast 1
+		console.log("Knob Children : " + $("#right-side-knobs").children().length);
+		if($("#right-side-knobs").children().length == 0) {
+			console.log("No Backends, making a stub");
+			var dial_color = "#72AE4A"; //green
+			var div1 = document.createElement('div');
+			div1.className = "row";
+			var div2 = document.createElement('div');
+			div2.className = "col-sm-12";
+			var div3 = document.createElement('div');
+			div3.className = "chart-wrapper";
+			var div4 = document.createElement('div');
+
+			//Create the Knob Graphic Name
+			div4.className = "chart-title";
+			var element = document.createElement("b")
+			element.innerHTML = "Backend Provider";
+			div4.appendChild(element);
+
+			//Create the Knob Graphic main Circle
+			var div5 = document.createElement('div');
+			div5.className = "chart-stage";
+
+			var input = document.createElement('input');
+			input.className = "knob";
+
+			var fgcolor = document.createAttribute('data-fgcolor');
+			fgcolor.value = dial_color;
+			input.setAttributeNode(fgcolor);
+
+			var readonly = document.createAttribute('data-readonly');
+			readonly.value = "true";
+			input.setAttributeNode(readonly);
+
+			var instances = document.createAttribute('value');
+			instances.value = 5;
 			input.setAttributeNode(instances);
 
 			var readonly1 = document.createAttribute('readonly');

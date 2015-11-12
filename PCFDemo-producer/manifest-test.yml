@@ -1,0 +1,11 @@
+---
+applications:
+- name: XFINITY Fantasy Pilot
+  memory: 512M
+  instances: 2
+  path: build/libs/demo-0.0.1-SNAPSHOT.jar
+  env:
+   JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
+   STATES: "or,wa,mn,wi,il"
+  services:
+   - comcast-rabbit

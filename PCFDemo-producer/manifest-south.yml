@@ -1,0 +1,11 @@
+---
+applications:
+- name: South Customer Region
+  memory: 512M
+  instances: 2
+  path: build/libs/demo-0.0.1-SNAPSHOT.jar
+  env:
+   JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
+   STATES: "tx,nm,ok,ar,la,ms,ga,fl"
+  services:
+   - comcast-rabbit
