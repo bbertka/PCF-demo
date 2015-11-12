@@ -12,4 +12,4 @@ cf scale "South Customer Region" -i 4
 sleep 20
 cf scale "South Customer Region" -i 2
 cf scale "East Customer Region" -i 2
-cf delete "XFINITY Fantasy Pilot" -f
+cf delete "XFINITY Fantasy Football Pilot" -f
