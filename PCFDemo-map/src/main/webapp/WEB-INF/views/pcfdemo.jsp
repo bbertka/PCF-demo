@@ -57,12 +57,12 @@
       </div><!-- End Left Column content -->
       
       <!-- Begin Center Column content -->  
-      <div class="col-sm-8">
+      <div class="col-sm-10">
       <div class="row">
        <div class="col-sm-12">
         <div class="chart-wrapper">
           <div class="chart-title">
-            <b>Activation density per US State (tip: click on a state for details)</b>
+            <b>Service Activation density per US State (tip: click on a state for details)</b>
           </div>
           <div class="chart-stage">
 	          <div id="stateOrders" align="center" ></div>
@@ -103,9 +103,10 @@
 
       </div>
       
-      <!-- Begin Right Column content -->  
+      <!-- Begin Right Column content
       <div class="col-sm-2" id="right-side-knobs">
-      </div><!-- End Right Column content -->  
+      </div>
+      End Right Column content -->
       
 
     </div>

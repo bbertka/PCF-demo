@@ -4,11 +4,12 @@ applications:
   memory: 512M
   instances: 1
   path: ./target/pcfdemo-map.war
+  buildpack: java_buildpack_offline
   timeout: 90
   env:
    JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
-   CF_USERNAME: changeme
-   CF_PASSWORD: changeme
-   CF_ENDPOINT: api.my.cf.url.com
+   CF_USERNAME: azwickey@pivotal.io
+   CF_PASSWORD: p1v0tal
+   CF_ENDPOINT: api.vert.fe.gopivotal.com
   services:
     - comcast-rabbit

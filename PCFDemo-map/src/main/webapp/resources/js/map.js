@@ -7,6 +7,17 @@ function getApplications(){
 		//console.log(data);
 		var leftsideknobs = document.getElementById("left-side-knobs");
 		$("#left-side-knobs").empty();
+
+		//quickly compute some values for total services
+		var total_instances = 0;
+		for(var i = 0; i < data.length; i++) {
+			if(i!=0) {  //skip first one
+				var obj = data[i]["entity"];
+				total_instances += obj["instances"];
+			}
+		}
+
+
 		for(var i = 0; i < data.length; i++) {
 		    var obj = data[i]["entity"];
 			//console.log(obj);
@@ -29,14 +40,23 @@ function getApplications(){
 		    var div5 = document.createElement('div');
 		    div5.className = "chart-stage";
 		    var color = "#D93D2E";  //red
-		    var status = "Stopped Activation Instances";
 		    if(obj["state"] == 'STARTED' && obj["package_state"] != 'PENDING'){
 		    	color = "#70AD48"; //comcast green
-		    	status = "Running Activation Instances";
 		    } else if(obj["state"] == 'PENDING' || obj["package_state"] == 'PENDING'){
 				color = "#E0AC38"; //comcast orange
-				status = "Starting Activation Instances";
 			}
+
+			switch(i) {
+				case 0:
+					status = "Regions Activated";
+					break;
+				case 1:
+					status = "Service Markets Activated";
+					break;
+				default:
+					status = "Service Markets Activated";
+			}
+
 		    
 		    var input = document.createElement('input');
 		    input.className = "knob";
@@ -50,7 +70,11 @@ function getApplications(){
 			input.setAttributeNode(readonly);
 
 		    var instances = document.createAttribute('value');
-		    instances.value = obj["instances"];
+			if(i==0) {
+				instances.value = data.length - 1;
+			} else {
+				instances.value = obj["instances"] * 50;
+			}
 			input.setAttributeNode(instances);
 			
 		    var readonly1 = document.createAttribute('readonly');
@@ -58,7 +82,7 @@ function getApplications(){
 			input.setAttributeNode(readonly1);
 
 			var max_scale = document.createAttribute('data-max');
-			max_scale.value = "8"
+			max_scale.value = (i != 0) ? "300" : "5";
 			input.setAttributeNode(max_scale);
 						
 			div5.appendChild(input); //add graphic to node
@@ -255,10 +279,10 @@ function getBackends(){
 
 window.onload = function() {
 	getApplications();
-	getBackends();
+	//getBackends();
 };
 setInterval(getApplications, 2000);
-setInterval(getBackends, 2000);
+//setInterval(getBackends, 2000);
 
 
 
