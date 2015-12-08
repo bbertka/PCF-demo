@@ -37,7 +37,8 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-          <a class="navbar-brand" href="#"><img src="resources/img/Comcast_Logo.png" alt="Comcast"></a>
+	<! -- To change logo be sure to use 155x33 px with transparency for best results -->
+          <a class="navbar-brand" href="#"><img src="resources/img/Company_Logo.png" alt="Comcast"></a>
        </div>
        <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">

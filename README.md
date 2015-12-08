@@ -32,4 +32,6 @@ Remember:  free RabbitMQ service on PWS (a.k.a. "CloudAMQP" plan "lemur") is lim
 
 For deploying this demo through Jenkins, see instructions here: https://github.com/bbertka/PCF-demo/blob/micro-services/Deploy-microservices-CD.adoc
 
+Note, to change the company logo, a 151x33px png with transparency is ideal.
+ 
 Enjoy!!
