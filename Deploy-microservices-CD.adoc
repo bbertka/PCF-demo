@@ -28,13 +28,13 @@ export API=http://<your_cf_api>
 cf api --skip-ssl-validation $API
 cf login -u <user> -p <password> -o <org> -s <space>
 
-cf create-service p-rabbitmq standard demo-rabbit
+cf create-service p-rabbitmq standard myrabbit
 
 cf push PCFDemo-producer -f PCFDemo-producer/manifest.yml --no-start 
 cf push PCFDemo-map -f PCFDemo-map/manifest.yml --no-start 
 
-cf bind-service PCFDemo-producer demo-rabbit
-cf bind-service PCFDemo-map demo-rabbit
+cf bind-service PCFDemo-producer myrabbit
+cf bind-service PCFDemo-map myrabbit
 
 cf restart PCFDemo-producer
 cf restart PCFDemo-map
