@@ -7,6 +7,7 @@ applications:
   timeout: 90
   env:
    JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
+   CF_TARGET: https://api.vert.fe.gopivotal.com
    STATES: "pa,ny,nj"
   services:
    - myrabbit
@@ -18,6 +19,7 @@ applications:
   timeout: 90
   env:
    JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
+   CF_TARGET: https://api.vert.fe.gopivotal.com
    STATES: "tx,nm,ok"
   services:
    - myrabbit
@@ -29,6 +31,7 @@ applications:
   timeout: 90
   env:
    JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
+   CF_TARGET: https://api.vert.fe.gopivotal.com
    STATES: "wa,or,id"
   services:
    - myrabbit

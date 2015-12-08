@@ -7,6 +7,7 @@ applications:
   path: build/libs/demo-0.0.1-SNAPSHOT.jar
   env:
    JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
+   CF_TARGET: https://api.vert.fe.gopivotal.com
    STATES: "tx,nm,ok,ar,la,ms,ga,fl"
   services:
    - myrabbit
