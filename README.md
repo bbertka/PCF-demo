@@ -4,9 +4,7 @@ PCF Demo
 This project is under development for porting to Spring Boot Gradle. Projects must be rebuilt:
 
 - PCFDemo-producer: ./gradlew build
-- Jenkins instructions not ready for new version
-
-
+- PCFDemo-map: mvn package
 
 This is the refactoring for the PCF-Demo app built with two different micro-services: 
 
