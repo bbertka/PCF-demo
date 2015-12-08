@@ -1,7 +1,9 @@
 PCF Demo
 =========
-***Update***
-This project is under development for porting to Spring Boot Gradle. Projects must be rebuilt:
+
+[![Screenshot](https://raw.githubusercontent.com/bbertka/PCF-demo/micro-services/screenshot.jpg)](#)
+
+Build the following projects first:
 
 - PCFDemo-producer: ./gradlew build
 - PCFDemo-map: mvn package
