@@ -9,4 +9,4 @@ applications:
    JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
    STATES: "tx,nm,ok,ar,la,ms,ga,fl"
   services:
-   - comcast-rabbit
+   - myrabbit

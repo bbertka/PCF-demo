@@ -1,8 +1,6 @@
 PCF Demo
 =========
 
-[![Screenshot](https://raw.githubusercontent.com/bbertka/PCF-demo/micro-services/screenshot.jpg)](#)
-
 This is the refactoring for the PCF-Demo app built with two different micro-services: 
 
 - The producer (generating orders) - written in Groovy with SpringBoot 
