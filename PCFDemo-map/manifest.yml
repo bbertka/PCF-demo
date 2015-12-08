@@ -12,4 +12,4 @@ applications:
    CF_PASSWORD: p1v0tal
    CF_ENDPOINT: api.vert.fe.gopivotal.com
   services:
-    - comcast-rabbit
+    - myrabbit
