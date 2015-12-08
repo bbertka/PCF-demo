@@ -1,0 +1,13 @@
+server:
+  port: ${PORT}
+
+spring:
+  application:
+    name: ${vcap.application.name}
+  cloud:
+    services:
+      registrationMethod: route
+
+security:
+  basic:
+    enabled: false
