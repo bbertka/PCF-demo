@@ -3,11 +3,6 @@ PCF Demo
 
 [![Screenshot](https://raw.githubusercontent.com/bbertka/PCF-demo/micro-services/screenshot.jpg)](#)
 
-Build the following projects first:
-
-- PCFDemo-producer: ./gradlew build
-- PCFDemo-map: mvn package
-
 This is the refactoring for the PCF-Demo app built with two different micro-services: 
 
 - The producer (generating orders) - written in Groovy with SpringBoot 
@@ -23,6 +18,11 @@ A script for pushing to PWS is also provided, which will create a space called "
 The manifest.yml file for the pcfdemo-map application must be update to set the appropriate CF API values; CF_USERNAME, CF_PASSWORD and CF_ENDPOINT.  CF_ENDPOINT should be specified specified in the format of 'api.some.url.to.com' (http:// is omitted)
 
 The pcfdemo-producer app(s) may be tailored to send data to target specific states.  To configure this set an env variable on the application called STATES and set the value to a comma-delimited list of states you wish to target.  E.G. STATES: "ny,nj,pa"
+
+To run, build the following projects first:
+
+- PCFDemo-producer: ./gradlew build
+- PCFDemo-map: mvn package
 
 Instructions for deployment on PCF
 - cf api [your cf api url]
