@@ -10,3 +10,4 @@ applications:
    STATES: ""
   services:
    - myrabbit
+   - myeureka

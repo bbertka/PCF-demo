@@ -9,7 +9,8 @@ applications:
    JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
    STATES: "pa,ny,nj"
   services:
-   - comcast-rabbit
+   - myrabbit
+   - myeureka
 - name: South Customer Region
   memory: 512M
   instances: 2
@@ -19,7 +20,8 @@ applications:
    JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
    STATES: "tx,nm,ok"
   services:
-   - comcast-rabbit
+   - myrabbit
+   - myeureka
 - name: West Customer Region
   memory: 512M
   instances: 1
@@ -29,4 +31,5 @@ applications:
    JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
    STATES: "wa,or,id"
   services:
-   - comcast-rabbit
+   - myrabbit
+   - myeureka

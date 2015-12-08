@@ -10,3 +10,4 @@ applications:
    STATES: "tx,nm,ok,ar,la,ms,ga,fl"
   services:
    - myrabbit
+   - myeureka

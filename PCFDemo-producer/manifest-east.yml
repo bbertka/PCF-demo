@@ -10,3 +10,4 @@ applications:
    STATES: "pa,ny,nj,ct,ma,nh,va,de,md,me,vt"
   services:
    - myrabbit
+   - myeureka
