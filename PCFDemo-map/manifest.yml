@@ -8,8 +8,8 @@ applications:
   timeout: 90
   env:
    JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
-   CF_USERNAME: azwickey@pivotal.io
-   CF_PASSWORD: p1v0tal
+   CF_USERNAME: bbertka@pivotal.io
+   CF_PASSWORD: pivotal123
    CF_ENDPOINT: api.vert.fe.gopivotal.com
   services:
     - myrabbit
