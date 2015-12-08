@@ -14,7 +14,7 @@
 * If you have an artifactory server available:  On "Build Environment", select "Maven3-Artifactory Integration". Select your Artifactory Server. Click "Refresh Repositories" and select the following repositories: "ext-release-local" for releases and "ext-snapshot-local" for snapshots. Also select "Capture and publish build info". When demo'ing,  *don't* select "Deploy artifacts to Artifactory", as it would require additional storage space per deploy.
 * On "Build", setup as following:
 - Invoke Maven 3:  Root pom "PCFDemo-map/pom.xml", goal "clean package"
-- MAVEN_OPTS (may vary for your environment): -Dmaven.multiModuleProjectDirectory=/var/vcap/packages/maven
+- Click 'Advanced', and add to MAVEN_OPTS (may vary for your environment): -Dmaven.multiModuleProjectDirectory=/var/vcap/packages/maven
 - Execute Shell:
 ----
 DEPLOYED_VERSION_CMD=$(CF_COLOR=false cf apps | grep 'mapUS.' | cut -d" " -f1)
