@@ -131,12 +131,8 @@ function getBackends(){
 			var dial_color = "#72AE4A"; //green
 			var dial_value = 20*Math.floor(producer_instances/ratio);
 			
-			if(dial_value <= 33){
-				dial_color = "#72AE4A"; //green
-			}else if(dial_value > 33 && dial_value <= 66){
-				dial_color = "#E0AC38"; //orange
-			}else{
-				dial_color = "#D93C2E"; //red
+			if(dial_value <= 50){
+				dial_color = "#EOAC38"; //orange
 			}
 			
 			var div1 = document.createElement('div');
@@ -150,7 +146,8 @@ function getBackends(){
 			//Create the Knob Graphic Name
 			div4.className = "chart-title";
 			var element = document.createElement("b")
-			element.innerHTML = "Backend Provider";
+			var count = i + 1;
+			element.innerHTML = "Backend Service " + count.toString();
 			div4.appendChild(element);
 
 			//Create the Knob Graphic main Circle
@@ -192,7 +189,7 @@ function getBackends(){
 			var align = document.createAttribute('align');
 			align.value = "center";
 			div6.setAttributeNode(align);
-			div6.appendChild(document.createTextNode("Platform Consumption %"));
+			div6.appendChild(document.createTextNode("Service Consumption %"));
 
 			div3.appendChild(div4); //add chart name
 			div3.appendChild(div5); //add chart graphic
@@ -218,7 +215,7 @@ function getBackends(){
 			//Create the Knob Graphic Name
 			div4.className = "chart-title";
 			var element = document.createElement("b")
-			element.innerHTML = "Backend Provider";
+			element.innerHTML = "Backend Service";
 			div4.appendChild(element);
 
 			//Create the Knob Graphic main Circle
@@ -279,10 +276,10 @@ function getBackends(){
 
 window.onload = function() {
 	getApplications();
-	//getBackends();
+	getBackends();
 };
 setInterval(getApplications, 2000);
-//setInterval(getBackends, 2000);
+setInterval(getBackends, 2000);
 
 
 

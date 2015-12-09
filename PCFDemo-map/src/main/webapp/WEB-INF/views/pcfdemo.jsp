@@ -58,7 +58,7 @@
       </div><!-- End Left Column content -->
       
       <!-- Begin Center Column content -->  
-      <div class="col-sm-10">
+      <div class="col-sm-8">
       <div class="row">
        <div class="col-sm-12">
         <div class="chart-wrapper">
@@ -85,7 +85,7 @@
 
       <!-- Unhide to show environment
       <div class="row">
-       <div class="col-sm-12">
+       <div class="col-sm-10">
         <div class="chart-wrapper">
           <div class="chart-title">
            Debug PCF Instance Environment
@@ -104,10 +104,10 @@
 
       </div>
       
-      <!-- Begin Right Column content
+      <!-- Begin Right Column content -->
       <div class="col-sm-2" id="right-side-knobs">
       </div>
-      End Right Column content -->
+      <!-- End Right Column content -->
       
 
     </div>
