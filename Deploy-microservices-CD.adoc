@@ -16,6 +16,7 @@
 - Invoke Maven 3:  Root pom "PCFDemo-map/pom.xml", goal "clean package"
 - Click 'Advanced', and add to MAVEN_OPTS (may vary for your environment): -Dmaven.multiModuleProjectDirectory=/var/vcap/packages/maven
 - Execute Shell:
+* Set Build Triggers with desired polling for repo changes: "*/1 * * * *" is each minute
 ----
 DEPLOYED_VERSION_CMD=$(CF_COLOR=false cf apps | grep 'mapUS.' | cut -d" " -f1)
 export BUILD_VERSION="1.2"
