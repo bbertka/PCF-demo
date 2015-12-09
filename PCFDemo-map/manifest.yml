@@ -3,7 +3,7 @@ applications:
 - name: Service Activation Map
   memory: 512M
   instances: 1
-  path: ./build/libs/PCFDemo-boot-map-0.0.1-SNAPSHOT.jar
+  path: ./build/libs/demo-0.0.1-SNAPSHOT.jar
   buildpack: java_buildpack_offline
   timeout: 90
   env:
