@@ -1,3 +1,6 @@
+server:
+  port: ${PORT}
+
 spring:
   application:
     name: ${vcap.application.name}
@@ -8,4 +11,3 @@ spring:
 security:
   basic:
     enabled: false
-
