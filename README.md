@@ -15,7 +15,7 @@ For convenience, a manifest which will push both micro-services at the same time
 
 The manifest.yml file for the pcfdemo-map application must be update to set the appropriate CF API values; CF_USERNAME, CF_PASSWORD and CF_ENDPOINT.  CF_ENDPOINT should be specified specified in the format of 'api.some.url.to.com' (http:// is omitted)
 
-For both apps, an environent variable called CF_TARGET must be updated to your api endpoint (https:// is included) -- not this is a redundancy required by Spring Cloud Service Discovery and will be consiolidated with the CF_ENDPOINT variable in an update to this codebase.
+For both apps, an environent variable called CF_TARGET must be updated to your api endpoint (https:// is included) -- note this is a redundancy required by Spring Cloud Service Discovery and will be merged with the CF_ENDPOINT variable in an update to this codebase.
 
 The pcfdemo-producer app(s) may be tailored to send data to target specific states.  To configure this set an env variable on the application called STATES and set the value to a comma-delimited list of states you wish to target.  E.G. STATES: "ny,nj,pa"
 
