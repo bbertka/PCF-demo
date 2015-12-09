@@ -13,8 +13,9 @@
 * On "Build Triggers", select "Build when a change is pushed to GitHub"
 * If you have an artifactory server available:  On "Build Environment", select "Maven3-Artifactory Integration". Select your Artifactory Server. Click "Refresh Repositories" and select the following repositories: "ext-release-local" for releases and "ext-snapshot-local" for snapshots. Also select "Capture and publish build info". When demo'ing,  *don't* select "Deploy artifacts to Artifactory", as it would require additional storage space per deploy.
 * On "Build", setup as following:
-- Invoke Maven 3:  Root pom "PCFDemo-map/pom.xml", goal "clean package"
-- Click 'Advanced', and add to MAVEN_OPTS (may vary for your environment): -Dmaven.multiModuleProjectDirectory=/var/vcap/packages/maven
+- Invoke Gradle:  Use gradle wrapper, make executable, tasks: assemble, Root Build Script: PCFDemo-producer/
+- Invoke Gradle:  Use gradle wrapper, make executable, tasks: assemble, Root Build Script: PCFDemo-map/
+- Force GRADLE_USER_HOME to use workspace
 - Execute Shell:
 * Set Build Triggers with desired polling for repo changes: "*/1 * * * *" is each minute
 ----
@@ -33,9 +34,9 @@ cf login -u <user> -p <password> -o <org> -s <space>
 cf create-service p-rabbitmq standard myrabbit
 cf create-service p-service-registry standard myeureka
 
-cf push PCF-Demo-Map -f PCFDemo-map/manifest.yml
-cf bind-service PCF-Demo-Map myrabbit
-cf bind-service PCF-Demo-Map myeureka
+cf push "Service Activation Map" -f PCFDemo-map/manifest.yml
+cf bind-service "Service Activation Map" myrabbit
+cf bind-service "Service Activation Map" myeureka
 
 cf push "Fantasy Sports Pilot" -f PCFDemo-producer/manifest-pilot.yml
 cf bind-service "Fantasy Sports Pilot" myrabbit
