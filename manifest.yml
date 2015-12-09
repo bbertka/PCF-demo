@@ -8,12 +8,14 @@ applications:
   timeout: 90
   services:
    - myrabbit
+   - myeureka
 - name: pcfdemo-map
   memory: 512M 
   instances: 2
   host: pcfdemo-map-${random-word}
-  path: PCFDemo-map/target/pcfdemo-map.war
+  path: PCFDemo-map/build/libs/demo-0.0.1-SNAPSHOT.jar
   timeout: 90
   services:
    - myrabbit
+   - myeureka
 
