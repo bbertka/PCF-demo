@@ -9,9 +9,9 @@ This is the Spring Boot refactoring for the PCF-Demo app built with two differen
 The apps/micro-services are connected through a RabbitMQ instance of any name and all the information exchanged is JSON based.
 The map will be active as the PCF-demo-producer micro-service is started. To freeze the map, just stop the service.
 
-For convenience, a manifest which will push both micro-services at the same time is provided, assuming a RabbitMQ service called "myrabbit" is created.
+Service discovery is enabled with Netflix OSS Eureka via Spring Cloud Service Discovery service.
 
-A script for pushing to PWS is also provided, which will create a space called "pcf-demo", create the service required and push both micro-services to it.
+For convenience, a manifest which will push both micro-services at the same time is provided, assuming a RabbitMQ service called "myrabbit" is created, as well as a Spring Cloud Services Service Discovery (Eureka) service "myeureka" is also created.
 
 The manifest.yml file for the pcfdemo-map application must be update to set the appropriate CF API values; CF_USERNAME, CF_PASSWORD and CF_ENDPOINT.  CF_ENDPOINT should be specified specified in the format of 'api.some.url.to.com' (http:// is omitted)
 
