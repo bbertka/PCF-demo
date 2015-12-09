@@ -1,10 +1,10 @@
-PCF Demo
+PCF Demo - Spring Boot Microservices
 =========
 
-This is the refactoring for the PCF-Demo app built with two different micro-services: 
+This is the Spring Boot refactoring for the PCF-Demo app built with two different micro-services: 
 
-- The producer (generating orders) - written in Groovy with SpringBoot 
-- The map (consuming orders and presenting on the heat map) - written in Java with Spring Web MVC.
+- The producer (generating orders) 
+- The map (consuming orders and presenting on the heat map)
 
 The apps/micro-services are connected through a RabbitMQ instance of any name and all the information exchanged is JSON based.
 The map will be active as the PCF-demo-producer micro-service is started. To freeze the map, just stop the service.
@@ -19,13 +19,14 @@ The pcfdemo-producer app(s) may be tailored to send data to target specific stat
 
 To run, build the following projects first:
 
-- PCFDemo-producer: ./gradlew build
-- PCFDemo-map: mvn package
+- PCFDemo-producer: ./gradlew assemble
+- PCFDemo-map: ./gradlew assemble
 
-Instructions for deployment on PCF
+General Instructions for deployment on PCF
 - cf api [your cf api url]
 - cf login 
 - cf create-service p-rabbitmq standard myrabbit (for PWS: "cf create-service cloudamqp lemur myrabbit")
+- cf create-service p-service-registry standard myeureka
 - cf push
 
 Remember:  free RabbitMQ service on PWS (a.k.a. "CloudAMQP" plan "lemur") is limited to 3 connections max. For that, you can demo two instances of the map (still able to show self-healing and load-balancing) and one instance of the producer.
