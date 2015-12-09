@@ -1,0 +1,17 @@
+---
+applications:
+- name: PCF-Demo-boot-Map
+  memory: 512M
+  instances: 1
+  path: ./build/libs/PCFDemo-boot-map-0.0.1-SNAPSHOT.jar
+  buildpack: java_buildpack_offline
+  timeout: 90
+  env:
+   JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
+   CF_TARGET: https://api.vert.fe.gopivotal.com
+   CF_USERNAME: bbertka@pivotal.io
+   CF_PASSWORD: pivotal123
+   CF_ENDPOINT: api.vert.fe.gopivotal.com
+  services:
+    - myrabbit
+    - myeureka
