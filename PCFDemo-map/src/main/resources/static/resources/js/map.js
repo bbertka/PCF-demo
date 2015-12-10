@@ -327,7 +327,7 @@ setTimeout(updateHistogram, 1000);
 var selectedState;
 
 var width = 960,
-    height = 485,
+    height = 490,
     centered;
 
 var projection = d3.geo.albersUsa()
