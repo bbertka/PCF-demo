@@ -28,30 +28,34 @@ echo "Deployed Version: $DEPLOYED_VERSION"
 echo "Route Version: $ROUTE_VERSION"
 export API=http://<your_cf_api>
 
-cf api --skip-ssl-validation $API
-cf login -u <user> -p <password> -o <org> -s <space>
+wget -O cf.tgz https://cli.run.pivotal.io/stable?release=linux64-binary&version=6.13.0&source=github-rel
+sleep 5
+tar -zxvf ./cf.tgz
 
-cf push "Service Activation Map" -f PCFDemo-map/manifest.yml --no-start
-cf bind-service "Service Activation Map" myrabbit
-cf bind-service "Service Activation Map" myeureka
-cf restart "Service Activation Map"
+./cf api --skip-ssl-validation $API
+./cf login -u <user> -p <password> -o <org> -s <space>
 
-cf push "Fantasy Sports Pilot" -f PCFDemo-producer/manifest-pilot.yml --no-start
-cf bind-service "Fantasy Sports Pilot" myrabbit
-cf bind-service "Fantasy Sports Pilot" myeureka
-cf restart "Fantasy Sports Pilot"
+./cf push "Service Activation Map" -f PCFDemo-map/manifest.yml --no-start
+./cf bind-service "Service Activation Map" myrabbit
+./cf bind-service "Service Activation Map" myeureka
+./cf restart "Service Activation Map"
 
-cf push "East Customer Regions" -f PCFDemo-producer/manifest-east.yml --no-start
-cf bind-service "East Customer Regions" myrabbit
-cf bind-service "East Customer Regions" myeureka
-cf restart "East Customer Regions"
-cf scale "East Customer Regions" -i 5
+./cf push "Fantasy Sports Pilot" -f PCFDemo-producer/manifest-pilot.yml --no-start
+./cf bind-service "Fantasy Sports Pilot" myrabbit
+./cf bind-service "Fantasy Sports Pilot" myeureka
+./cf restart "Fantasy Sports Pilot"
 
-cf push "South Customer Regions" -f PCFDemo-producer/manifest-south.yml --no-start
-cf bind-service "South Customer Regions" myrabbit
-cf bind-service "South Customer Regions" myeureka
-cf restart "South Customer Regions"
-cf scale "South Customer Regions" -i 4
+./cf push "East Customer Regions" -f PCFDemo-producer/manifest-east.yml --no-start
+./cf bind-service "East Customer Regions" myrabbit
+./cf bind-service "East Customer Regions" myeureka
+./cf restart "East Customer Regions"
+./cf scale "East Customer Regions" -i 5
+
+./cf push "South Customer Regions" -f PCFDemo-producer/manifest-south.yml --no-start
+./cf bind-service "South Customer Regions" myrabbit
+./cf bind-service "South Customer Regions" myeureka
+./cf restart "South Customer Regions"
+./cf scale "South Customer Regions" -i 4
 
 ----
 
