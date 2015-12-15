@@ -1,4 +1,4 @@
-PCF Demo - Spring Boot, Netflix OSS, and Jenkins Pipeline
+PCF Demo - Spring Boot, Netflix OSS, and Jenkins
 =========
 
 This is the Spring Boot refactoring for the PCF-Demo app built with two different micro-services: 
