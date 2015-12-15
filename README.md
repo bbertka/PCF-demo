@@ -1,9 +1,9 @@
-PCF Demo - Spring Boot Microservices, Netflix OSS, and Jenkins Pipeline
+PCF Demo - Spring Boot, Netflix OSS, and Jenkins Pipeline
 =========
 
 This is the Spring Boot refactoring for the PCF-Demo app built with two different micro-services: 
 
-- The producer (generating orders) 
+- The producer (generating subscribers/orders) 
 - The map (consuming orders and presenting on the heat map)
 
 The apps/micro-services are connected through a RabbitMQ instance of any name and all the information exchanged is JSON based.
