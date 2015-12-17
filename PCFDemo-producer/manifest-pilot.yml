@@ -8,6 +8,7 @@ applications:
   env:
    JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
    CF_TARGET: https://api.vert.fe.gopivotal.com
+   STATES: "wa,or,id,mt"
   services:
    - myrabbit
    - myeureka
