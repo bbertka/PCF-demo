@@ -12,6 +12,7 @@ applications:
    CF_USERNAME: bbertka@pivotal.io
    CF_PASSWORD: pivotal123
    CF_ENDPOINT: api.vert.fe.gopivotal.com
+   TEST_ENV: testing-123
   services:
     - myrabbit
     - myeureka
