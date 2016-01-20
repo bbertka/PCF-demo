@@ -10,9 +10,8 @@ applications:
    JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
    CF_TARGET: https://api.vert.fe.gopivotal.com
    CF_USERNAME: bbertka@pivotal.io
-   CF_PASSWORD: pivotal123
+   CF_PASSWORD: password
    CF_ENDPOINT: api.vert.fe.gopivotal.com
-   TEST_ENV: testing-123
   services:
     - myrabbit
     - myeureka
