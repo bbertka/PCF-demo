@@ -1,7 +1,7 @@
 ---
 applications:
-- name: Game Pilot
-  host: game-pilot
+- name: App Pilot
+  host: app-pilot
   memory: 512M
   instances: 1
   buildpack: java_buildpack_offline
