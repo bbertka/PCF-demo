@@ -1,6 +1,7 @@
 ---
 applications:
 - name: Service Activation Map
+  host: service-map
   memory: 512M
   instances: 1
   path: ./build/libs/demo-0.0.1-SNAPSHOT.jar

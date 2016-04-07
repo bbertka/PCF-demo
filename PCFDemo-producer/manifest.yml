@@ -1,6 +1,7 @@
 ---
 applications:
-- name: Fantasy Football Pilot
+- name: Game Pilot
+  host: game-pilot
   memory: 512M
   instances: 1
   buildpack: java_buildpack_offline
@@ -12,7 +13,8 @@ applications:
   services:
    - myrabbit
    - myeureka
-- name: South Customer Region
+- name: South Player Region
+  host: south-players
   memory: 512M
   instances: 1
   buildpack: java_buildpack_offline
@@ -24,7 +26,8 @@ applications:
   services:
    - myrabbit
    - myeureka
-- name: East Customer Region
+- name: East Player Region
+  host: east-players
   memory: 512M
   instances: 1
   buildpack: java_buildpack_offline
